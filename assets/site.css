@@ -137,6 +137,12 @@ a { color: inherit; }
   .is-android-app .cta.dl { display: none; }
 }
 
+/* ───── Компьютер: страница продуктов масштабируется целиком от макета 1440×900 (--z считает site.js) ───── */
+@media (min-width: 861px) {
+  #products .top, #products .track, #products .pager { zoom: var(--z, 1); }
+  #products .panel { grid-template-columns: 400px 600px; justify-content: center; }
+}
+
 /* ───── Невысокие экраны ноутбуков: фраза компактнее, чтобы шлем начинался под ней ───── */
 @media (min-width: 601px) and (max-height: 820px) {
   .hero h1 { margin-top: 10px; font-size: min(2.1vw, 3.1vh); line-height: 1.6; }

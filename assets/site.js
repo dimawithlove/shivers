@@ -110,11 +110,14 @@
   }
   // Страница продуктов (компьютер): телефон с кнопкой и QR — по центру высоты экрана
   function centerPhone() {
+    const pr = $('#products'), W = window.innerWidth, H = window.innerHeight;
+    const z = W > 860 ? Math.min(1.7, Math.max(0.8, Math.min(W / 1440, H / 900))) : 1;
+    pr.style.setProperty('--z', z);
     $$('.phone-col').forEach((c) => {
       c.style.marginTop = '';
-      if (window.innerWidth <= 860) return;
-      const top = c.getBoundingClientRect().top + window.scrollY;
-      c.style.marginTop = Math.max(0, Math.round(window.innerHeight / 2 - c.offsetHeight / 2 - top)) + 'px';
+      if (W <= 860) return;
+      const r = c.getBoundingClientRect(), top = r.top + window.scrollY;
+      c.style.marginTop = Math.max(0, Math.round((H / 2 - r.height / 2 - top) / z)) + 'px';
     });
   }
   const relayout = () => { fitHero(); if (!$('#products').hidden) centerPhone(); };
