@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Оферта · SHIVERS</title>
+<link rel="icon" href="assets/img/favicon.png">
+<link rel="stylesheet" href="assets/site.css">
+<style>body{background:#eef1f8} .page{max-width:820px;margin:0 auto;padding:24px 16px 60px} .page .sheet{max-height:none;box-shadow:0 10px 40px rgba(10,30,80,.12)} .bar{display:flex;justify-content:space-between;align-items:center;margin:0 0 14px} .back{color:#2448c9;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:8px} .back img{width:30px;height:30px;border-radius:50%;background:#0b1a44} .bar .lang{background:#fff;border-color:#dfe4f0} .bar .lang button{color:#5a6b93} .bar .lang button.on{background:#0b1a3a;color:#fff}</style>
+</head>
+<body>
+<main class="page">
+  <div class="bar"><a class="back" href="index.html"><img src="assets/img/logo.svg" alt="">SHIVERS</a></div>
+  <div class="sheet"><div class="doc" id="doc"></div></div>
+</main>
+<script src="assets/content.js"></script>
+<script>
+const q = new URLSearchParams(location.search);
+let L = 'ru';
+function draw(){ document.documentElement.lang = L; document.getElementById('doc').innerHTML = window.offerHTML(q.get('p') || 'rusexam', L); document.querySelectorAll('[data-l]').forEach(b=>b.classList.toggle('on', b.dataset.l===L)); }
+draw();
+</script>
+</body>
+</html>

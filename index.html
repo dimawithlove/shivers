@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SHIVERS</title>
+<meta name="description" content="SHIVERS — полезные IT-продукты. РусЭкзамен: подготовка к экзамену по русскому языку, истории и законам РФ для мигрантов из Узбекистана, Таджикистана и Киргизии.">
+<link rel="icon" href="assets/img/favicon.png">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<!-- Экран 1: главный -->
+<section id="home" class="screen hero">
+  <header class="top">
+    <a class="brand" href="#" data-go="home"><img class="logo" src="assets/img/logo.svg" alt="">SHIVERS</a>
+    <nav class="nav">
+      <button class="pill" data-modal="payment" data-t="payment"></button>
+      <button class="pill" data-modal="about" data-t="about"></button>
+    </nav>
+  </header>
+  <h1 class="lcd" id="headline" aria-label="Я выведу свои пет-проекты на новые горизонты. Давай начнём!"></h1>
+  <div class="mcat" aria-hidden="true"><div class="mimg"></div></div>
+  <button class="start lcd" data-go="products" aria-label="Старт"></button>
+</section>
+
+<!-- Экран 2: продукты -->
+<section id="products" class="screen products" hidden>
+  <header class="top">
+    <a class="brand" href="#" data-go="home"><img class="logo" src="assets/img/logo.svg" alt="">SHIVERS</a>
+    <nav class="nav">
+      <button class="pill ghost" data-go="home" data-t="home"></button>
+      <button class="pill ghost" data-modal="payment" data-t="payment"></button>
+      <button class="pill ghost" data-modal="offer" data-t="offer"></button>
+      <button class="pill ghost" data-modal="about" data-t="about"></button>
+    </nav>
+  </header>
+  <div class="track" id="track"></div>
+  <div class="pager" id="pager"></div>
+  <img class="cat" src="assets/img/cat.webp" alt="" aria-hidden="true">
+</section>
+
+<!-- Модальное окно -->
+<div class="modal" id="modal" hidden>
+  <div class="sheet" role="dialog" aria-modal="true">
+    <button class="close" aria-label="Закрыть">×</button>
+    <div class="doc" id="modal-body"></div>
+  </div>
+</div>
+
+<footer class="foot" id="foot"></footer>
+
+<script src="assets/qrcode.js"></script>
+<script src="assets/seg14.js"></script>
+<script src="assets/content.js"></script>
+<script src="assets/site.js"></script>
+</body>
+</html>
