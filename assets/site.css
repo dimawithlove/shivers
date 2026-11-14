@@ -125,7 +125,7 @@ a { color: inherit; }
 .steps span { display: block; font-size: 14.5px; line-height: 1.5; margin-top: 2px; }
 .card { background: #f4f6fb; border-radius: 16px; padding: 16px 18px; margin-top: 14px; }
 .about-head { display: flex; align-items: center; gap: 14px; margin-bottom: 8px; }
-.about-head img { width: 96px; height: 96px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 3px #fff, 0 0 0 5px #6b8bff, 0 8px 20px rgba(0,0,0,.25); }
+.about-head img { width: 112px; height: 112px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 3px #fff, 0 0 0 5px #6b8bff, 0 8px 20px rgba(0,0,0,.25); }
 
 .foot { position: relative; padding: 14px 16px 18px; font-size: 12.5px; line-height: 1.6; color: rgba(225,235,255,.75); text-align: center; background: #040c22; }
 .foot a { color: #fff; }
@@ -140,7 +140,7 @@ a { color: inherit; }
 @media (min-width: 861px) {
   #products .top, #products .track, #products .pager { zoom: var(--z, 1); }
   #products .panel { grid-template-columns: 400px 600px; justify-content: center; }
-  #products .phone { width: 275px; }
+  #products .phone { width: 318px; }
 }
 
 /* ───── Невысокие экраны ноутбуков: фраза компактнее, чтобы шлем начинался под ней ───── */
@@ -222,7 +222,7 @@ a { color: inherit; }
   #products .track { margin-top: 10px; }
   #products .panel { row-gap: 16px; }
   #products .phone { width: min(66vw, 300px, calc((100svh - 300px) / 2.164)); }
-  .products { background-image: linear-gradient(180deg, rgba(6,18,58,.82) 0%, rgba(8,26,80,.62) 45%, rgba(6,18,58,.7) 100%), url('img/sky.webp'); }
+  .products { background: #071c40 url('img/sky-m.webp') 50% 0 / cover no-repeat fixed; }
   .mhead h2 { margin: 0; font-size: clamp(34px, 9vw, 44px); font-weight: 700; line-height: 1.05; }
   .mhead .audience { margin-top: 10px; }
   .info > .kicker, .info > h2, .info > .audience { display: none; }

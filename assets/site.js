@@ -169,7 +169,7 @@
     const U = S.ui[L], s = S.seller, p = S.products[cur];
     let html = '';
     if (kind === 'about') {
-      html = `<div class="about-head"><img src="assets/img/dmitriy.webp" alt="Дмитрий Шинаев" width="96" height="96"><h1 style="margin:0">${U.aboutTitle}</h1></div>
+      html = `<div class="about-head"><img src="assets/img/dmitriy.webp" alt="Дмитрий Шинаев" width="112" height="112"><h1 style="margin:0">${U.aboutTitle}</h1></div>
         <p>${U.aboutText}</p>
         <div class="card"><p><b>${s.name[L]}</b></p><p>${s.status[L]}</p><p>${U.inn} ${s.inn}</p>
         <p>${s.city}</p><p>Телефон: <a href="tel:${s.tel}">${s.phone}</a></p>
