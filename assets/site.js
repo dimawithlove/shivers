@@ -14,7 +14,7 @@
     $('#products').hidden = screen !== 'products';
     history.replaceState(null, '', (screen === 'products' ? '#products' : '#') + (L === 'en' ? '' : ''));
     window.scrollTo(0, 0);
-    if (screen === 'products') { goTo(cur, false); centerPhone(); } else fitHero();
+    if (screen === 'products') { goTo(cur, false); centerPhone(); renderDock(); } else fitHero();
   }
 
   function texts() {
@@ -25,7 +25,7 @@
     $('#headline').innerHTML = window.seg14('Я выведу свои пет-проекты на новые горизонты.\nДмитрий Шинаев');
     $('.start').innerHTML = window.seg14('Старт');
     const s = S.seller;
-    $('#foot').innerHTML = `© ${new Date().getFullYear()} SHIVERS · ${s.name[L]} · ${U.inn} ${s.inn} · <a href="offer.html${L === 'en' ? '?lang=en' : ''}">${U.footer}</a> · <a href="privacy.html${L === 'en' ? '?lang=en' : ''}">${U.privacy}</a> · <a href="mailto:${s.email}">${s.email}</a>`;
+    $('#foot').innerHTML = `© ${new Date().getFullYear()} SHIVERS · ${s.name[L]} · ${U.inn} ${s.inn} · ${s.city} · <a href="tel:${s.tel}">${s.phone}</a> · <a href="offer.html${L === 'en' ? '?lang=en' : ''}">${U.footer}</a> · <a href="privacy.html${L === 'en' ? '?lang=en' : ''}">${U.privacy}</a> · <a href="mailto:${s.email}">${s.email}</a>`;
     buildPanels();
   }
 
@@ -38,7 +38,9 @@
       if (!hasUrl) action = `<span class="cta soon">${L === 'en' ? 'Coming soon to RuStore' : 'Скоро в RuStore'}</span>`;
       else if (android && isIOS) action = `<span class="cta soon">${U.onlyAndroid}</span>`;
       else action = `<a class="cta ${android ? 'dl' : ''}" href="${p.url}" target="_blank" rel="noopener">${android ? (L === 'en' ? 'Download on RuStore' : 'Скачать в RuStore') : (L === 'en' ? 'Open' : 'Открыть')}</a>`;
+      const head = `<p class="kicker">${U.project} ${i + 1} ${U.of} ${S.products.length}</p><h2>${p.name[L]}</h2><p class="audience"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5"/><circle cx="17" cy="9" r="2.6"/><path d="M16.5 14.6c2.6.2 4.4 1.8 5 4.6"/></svg>${p.audience[L]}</p>`;
       return `<article class="panel ${android && hasUrl ? 'is-android-app' : ''}" data-i="${i}">
+        <div class="mhead">${head}</div>
         <div class="phone-col">
           <div class="carousel">
             <button class="arrow left" aria-label="${U.prev}" title="${many ? U.prev : U.soonMore}" ${many ? '' : 'disabled'}>‹</button>
@@ -81,6 +83,7 @@
     const track = $('#track');
     track.scrollTo({ left: cur * track.clientWidth, behavior: smooth ? 'smooth' : 'auto' });
     $$('#pager .pd span').forEach((d, k) => d.classList.toggle('on', k === cur));
+    renderDock();
   }
   // Свайп пальцем — родная прокрутка с «защёлкиванием»; отслеживаем текущий продукт
   let st;
@@ -120,7 +123,40 @@
       c.style.marginTop = Math.max(0, Math.round((H / 2 - r.height / 2 - top) / z)) + 'px';
     });
   }
-  const relayout = () => { fitHero(); if (!$('#products').hidden) centerPhone(); };
+  // QR-док над котом (компьютер): по центру между низом кнопок шапки и верхом шлема
+  const CAT = { w: 1140, h: 952, helmetTop: 0.185, gazeX: 0.43 };
+  function renderDock() {
+    const p = S.products[cur], dock = $('#qrdock');
+    if (!dock) return;
+    const ready = !!p.url && p.kind === 'android';
+    dock.className = 'qrdock' + (ready ? ' ready' : ' soon');
+    dock.innerHTML = `<div class="qd-head"><span class="qd-led"></span><span class="qd-title">${window.seg14(ready ? 'Скачать' : 'Скоро')}</span></div>
+      <div class="qd-scan"><i class="c1"></i><i class="c2"></i><i class="c3"></i><i class="c4"></i>
+        <div class="qd-code">${ready ? '' : '<div class="qd-ghost"></div>'}</div>${ready ? '<b class="qd-beam"></b>' : ''}</div>
+      <p class="qd-cap">${ready ? 'Наведите камеру телефона —<br>' + p.name[L] + ' в RuStore' : 'Скоро в RuStore.<br>Здесь появится QR-код'}</p>`;
+    if (!ready) { try { const q = qrcode(0, 'M'); q.addData('SHIVERS ' + p.id); q.make(); $('.qd-ghost', dock).innerHTML = q.createSvgTag({ cellSize: 4, margin: 0, scalable: true }); } catch (e) { /* пусто */ } }
+    if (ready) { try { const q = qrcode(0, 'M'); q.addData(p.url); q.make(); $('.qd-code', dock).innerHTML = q.createSvgTag({ cellSize: 4, margin: 0, scalable: true }); } catch (e) { /* без QR */ } }
+    placeDock();
+  }
+  function placeDock() {
+    const dock = $('#qrdock'), cat = $('.cat'), pr = $('#products');
+    if (!dock || pr.hidden) return;
+    if (window.innerWidth <= 860) { dock.style.cssText = ''; return; }
+    const pr0 = pr.getBoundingClientRect(), cr = cat.getBoundingClientRect();
+    const k = Math.min(cr.width / CAT.w, cr.height / CAT.h), iw = CAT.w * k, ih = CAT.h * k;
+    const il = cr.right - iw, it = cr.bottom - ih;                 // картинка прижата вправо-вниз
+    const helmet = it + CAT.helmetTop * ih - pr0.top, navB = $('#products .top').getBoundingClientRect().bottom - pr0.top;
+    // свободная полоса справа от текста продукта (сам текст не двигаем)
+    const info = $(`.panel[data-i="${cur}"] .info`), infoR = info ? info.getBoundingClientRect().right - pr0.left : pr0.width * .6;
+    const minL = infoR + 24, maxR = pr0.width - 24, room = helmet - navB;
+    const z = Math.max(.6, Math.min(.8, (room - 16) / dock.offsetHeight, (maxR - minL) / dock.offsetWidth));
+    dock.style.setProperty('--dz', z);
+    const dh = dock.offsetHeight * z, dw = dock.offsetWidth * z;
+    let cx = il - pr0.left + CAT.gazeX * iw; cx = Math.max(minL + dw / 2, Math.min(cx, maxR - dw / 2));
+    dock.style.left = Math.round(cx - dw / 2) + 'px';
+    dock.style.top = Math.round(navB + (room - dh) / 2) + 'px';
+  }
+  const relayout = () => { fitHero(); if (!$('#products').hidden) { centerPhone(); placeDock(); } };
   window.addEventListener('resize', () => { goTo(cur, false); relayout(); });
   window.addEventListener('load', relayout);
   document.fonts && document.fonts.ready.then(relayout);
@@ -132,6 +168,7 @@
       html = `<div class="about-head"><img src="assets/img/logo.svg" alt=""><h1 style="margin:0">${U.aboutTitle}</h1></div>
         <p>${U.aboutText}</p>
         <div class="card"><p><b>${s.name[L]}</b></p><p>${s.status[L]}</p><p>${U.inn} ${s.inn}</p>
+        <p>${s.city}</p><p>Телефон: <a href="tel:${s.tel}">${s.phone}</a></p>
         <p>Эл. почта: <a href="mailto:${s.email}">${s.email}</a></p></div>
         <p class="muted" style="margin-top:14px">${U.aboutNote}</p>`;
     } else if (kind === 'payment') {
@@ -151,7 +188,7 @@
 
   document.addEventListener('click', (e) => {
     const go = e.target.closest('[data-go]');
-    if (go) { e.preventDefault(); show(go.dataset.go); return; }
+    if (go) { e.preventDefault(); closeModal(); show(go.dataset.go); return; }
     const m = e.target.closest('[data-modal]');
     if (m) { modal(m.dataset.modal); return; }
     if (e.target.closest('.close') || e.target === $('#modal')) closeModal();
