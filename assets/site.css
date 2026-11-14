@@ -227,3 +227,15 @@ a { color: inherit; }
   .mhead .audience { margin-top: 10px; }
   .info > .kicker, .info > h2, .info > .audience { display: none; }
 }
+
+/* ───── Телефон: цены столбиком, кот целиком справа от них ───── */
+@media (max-width: 600px) {
+  #products .prices { margin-top: 18px; padding: 14px 16px; border-radius: 16px; background: rgba(8,22,70,.55); border: 1px solid rgba(160,200,255,.18);
+    width: 60%; font-size: 15px; line-height: 1.75; position: relative; z-index: 1; }
+  #products .prices .pt { display: block; color: #9fb6e6; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; }
+  #products .prices .pi { display: block; white-space: nowrap; }
+  #products .prices .psep { display: none; }
+  #products .cat { width: min(46vw, 210px); opacity: 1; bottom: 0; right: -6px;
+    -webkit-mask-image: linear-gradient(180deg, #000 70%, transparent 100%); mask-image: linear-gradient(180deg, #000 70%, transparent 100%); }
+  #products .pager { padding-bottom: 28px; }
+}

@@ -58,7 +58,7 @@
           <p class="tagline">${p.tagline[L]}</p>
           <p class="lead">${p.lead[L]}</p>
           <ul class="features">${p.features[L].map(([t, d]) => `<li><div><b>${t}</b><span>${d}</span></div></li>`).join('')}</ul>
-          <p class="prices">${U.prices}: ${p.prices[L].map(([n, , c]) => `${n} — <b>${c}</b>`).join(' · ')}</p>
+          <p class="prices"><span class="pt">${U.prices}:</span> ${p.prices[L].map(([n, , c]) => `<span class="pi">${n} — <b>${c}</b></span>`).join('<i class="psep"> · </i>')}</p>
         </div>
       </article>`;
     }).join('');
