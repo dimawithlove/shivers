@@ -239,7 +239,8 @@ a { color: inherit; }
   #products .prices .psep { display: none; }
   #products .cat { width: min(46vw, 210px); opacity: 1; bottom: auto; right: -6px;
     -webkit-mask-image: linear-gradient(180deg, #000 70%, transparent 100%); mask-image: linear-gradient(180deg, #000 70%, transparent 100%); }
-  #products .pager { padding-bottom: 28px; }
+  #products .pager { padding-bottom: 0; margin-top: 0; }
+  #products.screen { padding-bottom: 22px; }
 }
 
 /* ───── Телефон: экран приложения максимально крупный, кнопка видна без прокрутки ───── */
@@ -250,7 +251,6 @@ a { color: inherit; }
   #products .mhead h2 { font-size: clamp(30px, 8.4vw, 40px); }
   #products .track { margin-top: 6px; }
   #products .panel { row-gap: 10px; }
-  #products .phone .scr img { object-fit: contain; background: #f5f7fb; }
   /* стрелки — в полях по бокам, место у экрана не отнимают */
   #products .carousel { position: relative; gap: 0; }
   #products .carousel .arrow { position: absolute; top: 50%; margin-top: -20px; z-index: 2; }

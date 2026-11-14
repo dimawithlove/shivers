@@ -177,10 +177,11 @@
     const ratio = 1266 / 585;
     const w = Math.round(Math.max(200, Math.min(W - 112, (H - top - below) / ratio)));
     $$('#products .phone').forEach((p) => { p.style.width = w + 'px'; p.style.height = Math.round(w * ratio) + 'px'; });
-    const prc = $('.prices', panel);
-    if (prc) {
-      const r = prc.getBoundingClientRect(), pt = pr.getBoundingClientRect().top, ch = cat.getBoundingClientRect().height;
-      cat.style.top = Math.round(r.top - pt + r.height / 2 - ch * 0.42) + 'px';
+    // фонари на шлеме (≈57% высоты картинки) — напротив второй цены
+    const pi = $$('.prices .pi', panel)[1] || $('.prices', panel);
+    if (pi) {
+      const r = pi.getBoundingClientRect(), pt = pr.getBoundingClientRect().top, ch = cat.getBoundingClientRect().height;
+      cat.style.top = Math.round(r.top - pt + r.height / 2 - ch * 0.57) + 'px';
     }
   }
   const relayout = () => { fitHero(); if (!$('#products').hidden) { centerPhone(); placeDock(); fitMobile(); } };
