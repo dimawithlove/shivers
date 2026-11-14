@@ -106,7 +106,7 @@
     let ox = W / 2 - IMG.cx * k; if (iw >= W) ox = Math.min(0, Math.max(W - iw, ox));
     const C = '#061430', f = 160;
     const fade = iw < W ? `linear-gradient(90deg, ${C} 0, ${C} ${ox}px, transparent ${ox + f}px, transparent ${ox + iw - f}px, ${C} ${ox + iw}px), ` : '';
-    hero.style.background = `${fade}${C} url('assets/img/hero.jpg') ${ox}px ${oy}px / ${iw}px ${ih}px no-repeat`;
+    hero.style.background = `${fade}${C} url('assets/img/hero.webp') ${ox}px ${oy}px / ${iw}px ${ih}px no-repeat`;
     if (fade) hero.style.backgroundSize = `100% 100%, ${iw}px ${ih}px`, hero.style.backgroundPosition = `0 0, ${ox}px ${oy}px`, hero.style.backgroundRepeat = 'no-repeat';
     btn.style.top = `${Math.round(IMG.collarY * k + oy + gap)}px`;
     btn.style.left = `${Math.round(IMG.cx * k + ox - bw / 2)}px`;
@@ -149,12 +149,16 @@
     // свободная полоса справа от текста продукта (сам текст не двигаем)
     const info = $(`.panel[data-i="${cur}"] .info`), infoR = info ? info.getBoundingClientRect().right - pr0.left : pr0.width * .6;
     const minL = infoR + 24, maxR = pr0.width - 24, room = helmet - navB;
-    const z = Math.max(.6, Math.min(.8, (room - 16) / dock.offsetHeight, (maxR - minL) / dock.offsetWidth));
+    // масштаб как у текста продукта (--z), чтобы подпись была того же размера, что описание; уменьшаем, только если не влезает
+    dock.style.setProperty('--dz', 1);
+    const zt = parseFloat(pr.style.getPropertyValue('--z')) || 1, bw = dock.offsetWidth, bh = dock.offsetHeight;
+    const z = Math.max(.55, Math.min(zt, (room - 16) / bh, (maxR - minL) / bw));
     dock.style.setProperty('--dz', z);
-    const dh = dock.offsetHeight * z, dw = dock.offsetWidth * z;
+    const dh = bh * z, dw = bw * z;
     let cx = il - pr0.left + CAT.gazeX * iw; cx = Math.max(minL + dw / 2, Math.min(cx, maxR - dw / 2));
-    dock.style.left = Math.round(cx - dw / 2) + 'px';
-    dock.style.top = Math.round(navB + (room - dh) / 2) + 'px';
+    // у элемента с zoom координаты тоже масштабируются — делим на z
+    dock.style.left = Math.round((cx - dw / 2) / z) + 'px';
+    dock.style.top = Math.round((navB + (room - dh) / 2) / z) + 'px';
   }
   const relayout = () => { fitHero(); if (!$('#products').hidden) { centerPhone(); placeDock(); } };
   window.addEventListener('resize', () => { goTo(cur, false); relayout(); });
@@ -165,7 +169,7 @@
     const U = S.ui[L], s = S.seller, p = S.products[cur];
     let html = '';
     if (kind === 'about') {
-      html = `<div class="about-head"><img src="assets/img/logo.svg" alt=""><h1 style="margin:0">${U.aboutTitle}</h1></div>
+      html = `<div class="about-head"><img src="assets/img/dmitriy.webp" alt="Дмитрий Шинаев" width="96" height="96"><h1 style="margin:0">${U.aboutTitle}</h1></div>
         <p>${U.aboutText}</p>
         <div class="card"><p><b>${s.name[L]}</b></p><p>${s.status[L]}</p><p>${U.inn} ${s.inn}</p>
         <p>${s.city}</p><p>Телефон: <a href="tel:${s.tel}">${s.phone}</a></p>

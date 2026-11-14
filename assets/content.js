@@ -95,7 +95,7 @@ window.SITE = {
           ['Pay once', 'No subscription, no automatic charges. Pay only for your exam.'],
         ],
       },
-      screens: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10'].map((n) => `assets/img/rusexam-${n}.jpg`),
+      screens: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10'].map((n) => `assets/img/rusexam-${n}.webp`),
       prices: {
         ru: [['«Патент»', 'подготовка к экзамену для получения патента на работу', '299 ₽'], ['«РВП / ВНЖ»', 'подготовка к экзамену для разрешения на временное проживание и вида на жительство', '490 ₽'], ['«Гражданство»', 'подготовка к экзамену для приёма в гражданство РФ', '790 ₽']],
         en: [['“Patent”', 'exam preparation for a work patent', '299 ₽'], ['“Residence”', 'exam preparation for temporary and permanent residence permits', '490 ₽'], ['“Citizenship”', 'exam preparation for Russian citizenship', '790 ₽']],
