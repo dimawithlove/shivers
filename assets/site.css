@@ -257,3 +257,9 @@ a { color: inherit; }
   #products .carousel .arrow.left { left: -54px; }
   #products .carousel .arrow.right { right: -54px; }
 }
+
+/* ───── Компьютер: страница продуктов — космос как на главной, пункты в голубой рамке ───── */
+@media (min-width: 861px) {
+  .products { background-image: linear-gradient(90deg, rgba(3,10,30,.35) 0%, rgba(3,10,30,.05) 60%, rgba(3,10,30,0) 100%), url('img/sky-d.webp'); background-size: cover; background-position: center top; }
+  #products .features li { border-color: #7fd3ff; }
+}
