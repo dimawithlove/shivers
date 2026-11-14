@@ -14,7 +14,7 @@
     $('#products').hidden = screen !== 'products';
     history.replaceState(null, '', (screen === 'products' ? '#products' : '#') + (L === 'en' ? '' : ''));
     window.scrollTo(0, 0);
-    if (screen === 'products') { goTo(cur, false); centerPhone(); renderDock(); } else fitHero();
+    if (screen === 'products') { goTo(cur, false); centerPhone(); renderDock(); fitMobile(true); } else fitHero();
   }
 
   function texts() {
@@ -160,7 +160,30 @@
     dock.style.left = Math.round((cx - dw / 2) / z) + 'px';
     dock.style.top = Math.round((navB + (room - dh) / 2) / z) + 'px';
   }
-  const relayout = () => { fitHero(); if (!$('#products').hidden) { centerPhone(); placeDock(); } };
+  // Телефон: макет приложения — максимально крупный, но так, чтобы точки и кнопка «Скоро в RuStore» были видны без прокрутки;
+  // кот — напротив блока цен
+  let fitW = 0;
+  function fitMobile(force) {
+    const W = window.innerWidth, H = window.innerHeight, pr = $('#products');
+    if (W <= 600 && !force && W === fitW && window.scrollY > 0) return;   // адресная строка прячется при прокрутке — не дёргаем макет
+    fitW = W;
+    $$('#products .phone').forEach((ph) => { ph.style.width = ph.style.height = ''; });
+    const cat = $('#products .cat'); cat.style.top = '';
+    if (W > 600 || pr.hidden) return;
+    const panel = $(`.panel[data-i="${cur}"]`) || $('.panel'), ph = $('.phone', panel), col = $('.phone-col', panel);
+    const top = ph.getBoundingClientRect().top - pr.getBoundingClientRect().top;
+    const dots = $('.sdots', panel), cta = $('.cta', panel);
+    const below = 10 + (dots ? dots.offsetHeight : 0) + 10 + (cta ? cta.offsetHeight : 0) + 14;
+    const ratio = 1266 / 585;
+    const w = Math.round(Math.max(200, Math.min(W - 40, (H - top - below) / ratio)));
+    $$('#products .phone').forEach((p) => { p.style.width = w + 'px'; p.style.height = Math.round(w * ratio) + 'px'; });
+    const prc = $('.prices', panel);
+    if (prc) {
+      const r = prc.getBoundingClientRect(), pt = pr.getBoundingClientRect().top, ch = cat.getBoundingClientRect().height;
+      cat.style.top = Math.round(r.top - pt + r.height / 2 - ch * 0.42) + 'px';
+    }
+  }
+  const relayout = () => { fitHero(); if (!$('#products').hidden) { centerPhone(); placeDock(); fitMobile(); } };
   window.addEventListener('resize', () => { goTo(cur, false); relayout(); });
   window.addEventListener('load', relayout);
   document.fonts && document.fonts.ready.then(relayout);
