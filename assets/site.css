@@ -251,4 +251,9 @@ a { color: inherit; }
   #products .track { margin-top: 6px; }
   #products .panel { row-gap: 10px; }
   #products .phone .scr img { object-fit: contain; background: #f5f7fb; }
+  /* стрелки — в полях по бокам, место у экрана не отнимают */
+  #products .carousel { position: relative; gap: 0; }
+  #products .carousel .arrow { position: absolute; top: 50%; margin-top: -20px; z-index: 2; }
+  #products .carousel .arrow.left { left: -54px; }
+  #products .carousel .arrow.right { right: -54px; }
 }
