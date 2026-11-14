@@ -174,7 +174,7 @@ a { color: inherit; }
     background: url('img/hero.webp') 0 0 / 100% 100% no-repeat;
     -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 calc(var(--w) * .14), #000 86%, transparent 100%); mask-image: linear-gradient(180deg, transparent 0, #000 calc(var(--w) * .14), #000 86%, transparent 100%); }
   .mcat::after { content: ''; position: absolute; inset: auto 0 0 0; height: 30%; background: linear-gradient(180deg, rgba(3,10,30,0), rgba(3,10,30,.35)); }
-  .start { position: absolute; z-index: 3; left: 50%; top: auto; bottom: max(34px, calc(9svh - 30px + env(safe-area-inset-bottom))); transform: translateX(-50%); margin: 0; padding: 12px 48px; }
+  .start { position: absolute; z-index: 3; left: 50%; top: auto; bottom: max(64px, calc(9svh + env(safe-area-inset-bottom))); transform: translateX(-50%); margin: 0; padding: 12px 48px; }
   .start:hover { transform: translateX(-50%); }
   .arrow { width: 40px; height: 40px; font-size: 28px; }
   .carousel { gap: 8px; }
