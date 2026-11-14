@@ -244,8 +244,6 @@ a { color: inherit; }
 
 /* ───── Телефон: экран приложения максимально крупный, кнопка видна без прокрутки ───── */
 @media (max-width: 600px) {
-  #products .arrow { display: none; }                      /* проекты листаются свайпом */
-  #products .carousel { gap: 0; }
   #products .phone-col { gap: 10px; }
   #products .mhead .audience { font-size: 11px; padding: 4px 10px; gap: 6px; margin-top: 6px; }
   #products .mhead .audience svg { width: 12px; height: 12px; }

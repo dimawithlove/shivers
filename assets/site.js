@@ -175,7 +175,7 @@
     const dots = $('.sdots', panel), cta = $('.cta', panel);
     const below = 10 + (dots ? dots.offsetHeight : 0) + 10 + (cta ? cta.offsetHeight : 0) + 14;
     const ratio = 1266 / 585;
-    const w = Math.round(Math.max(200, Math.min(W - 40, (H - top - below) / ratio)));
+    const w = Math.round(Math.max(200, Math.min(W - 40 - 96, (H - top - below) / ratio)));
     $$('#products .phone').forEach((p) => { p.style.width = w + 'px'; p.style.height = Math.round(w * ratio) + 'px'; });
     const prc = $('.prices', panel);
     if (prc) {
